@@ -15,7 +15,13 @@ class CreateRecruitmentsTable extends Migration
     {
         Schema::create('recruitments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('recruitment_contents');
+            $table->text('category');
+            $table->text('conditions');
+            $table->text('class');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
