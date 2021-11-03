@@ -5,6 +5,7 @@
         <title>Recruitment</title>
     </head>
     <body>
+        <a href='/recruitments/create'>募集する</a>
         <div class='recruitments'>
             @foreach ($recruitments as $recruitment)
                 <div class='recruitment'>
