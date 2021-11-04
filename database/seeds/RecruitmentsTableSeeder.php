@@ -26,5 +26,6 @@ class RecruitmentsTableSeeder extends Seeder
             'conditions' => 'conditions2',
             'class' => 'class2',
         ]);
+        
     }
 }
