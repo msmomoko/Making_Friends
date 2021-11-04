@@ -12,8 +12,12 @@
                     <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
                     <p class='category'>{{ $recruitment->category }}</p>
                     <p class='conditions'>{{ $recruitment->conditions }}</p>
-                    <p class='class'>{{ $recruitment->class }}</p><br>
+                    <p class='class'>{{ $recruitment->class }}</p>
                 </div>
+                @if(Auth::id() == $recruitment->user_id)
+                    <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
+                    <button type="button">削除</button>
+                @endif
             @endforeach
         </div>
     </body>
