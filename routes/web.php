@@ -12,3 +12,4 @@ Route::get('/recruitments/create', 'RecruitmentController@create');
 Route::post('/recruitments', 'RecruitmentController@store');
 Route::get('/recruitments/{recruitment}/edit', 'RecruitmentController@edit');
 Route::put('/recruitments/{recruitment}', 'RecruitmentController@update');
+Route::delete('/recruitments/{recruitment}', 'RecruitmentController@delete');

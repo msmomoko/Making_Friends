@@ -5,6 +5,7 @@
         <title>Recruitment</title>
     </head>
     <body>
+        @if(Auth::user())
         <form action="/recruitments" method="POST">
             @csrf
             <div class="user_id">
@@ -32,5 +33,6 @@
             </div>
                 <input type="submit" value="募集する">
         </form>
+        @endif
     </body>
 </html>
