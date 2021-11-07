@@ -42,4 +42,11 @@ class RecruitmentController extends Controller
         $recruitment->fill($input_recruitment)->save();
         return redirect('/recruitments/');
     }
+    
+    //
+    public function delete(Recruitment $recruitment)
+    {
+        $recruitment->delete();
+        return redirect('/recruitments');
+    }
 }

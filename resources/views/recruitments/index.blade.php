@@ -16,9 +16,22 @@
                 </div>
                 @if(Auth::id() == $recruitment->user_id)
                     <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
-                    <button type="button">削除</button>
+                    <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type='submit' style='display:none'>
+                        <button class="submit_btn" onclick="return deleteRecruitment(this);">削除</button>
+                    </form>
                 @endif
             @endforeach
         </div>
+        <script>
+            function deleteRecruitment()
+            {
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                    document.getElementById('form_delete').submit();
+                }
+            }
+        </script>
     </body>
 </html>
