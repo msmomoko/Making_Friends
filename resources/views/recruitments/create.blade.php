@@ -31,8 +31,17 @@
                 <input type="text" id="class" name="recruitment[class]" placeholder="自習室、学食　など" value="{{ old('recruitment.class') }}">
                 <p class="class_error" style="color:red">{{ $errors->first('recruitment.class') }}</p>
             </div>
-                <input type="submit" value="募集する">
+            <div class="location">
+                <label for="location">ロケーション</label>
+                <input type="text" id="location" name="recruitment[location]" placeholder="○○の近く　など" value="{{ old('recruitment.location') }}">
+                <p class="location_error" style="color:red">{{ $errors->first('recruitment.location') }}</p>
+            </div>
+            <input type="submit" value="募集する">
         </form>
+        @else
+        <p class='note'>募集にはログインが必要です</p>
+        <a href='/login'>新規登録・ログインはこちらから</a><br>
+        <a href='/recruitments'>募集一覧に戻る</a>
         @endif
     </body>
 </html>

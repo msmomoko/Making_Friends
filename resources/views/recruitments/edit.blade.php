@@ -31,6 +31,11 @@
                 <input type="text" id="class" name="recruitment[class]" value="{{ $recruitment->class }}" placeholder="自習室、学食　など" value="{{ old('recruitment.class') }}">
                 <p class="class_error" style="color:red">{{ $errors->first('recruitment.class') }}</p>
             </div>
+            <div class="location">
+                <label for="location">ロケーション</label>
+                <input type="text" id="location" name="recruitment[location]" value="{{ $recruitment->location }}" placeholder="○○の近く　など" value="{{ old('recruitment.location') }}">
+                <p class="location_error" style="color:red">{{ $errors->first('recruitment.location') }}</p>
+            </div>
             <input type="submit" value="編集する">
         </form>
     </body>

@@ -12,7 +12,7 @@ class RecruitmentController extends Controller
     //募集内容の一覧表示
     public function index(Recruitment $recruitment)
     {
-        return view('recruitments.index')->with(['recruitments' => $recruitment->get()]);
+        return view('recruitments.index')->with(['recruitments' => $recruitment->getByOrder()]);
     }
     
     //新しい募集内容作成フォームの表示
@@ -25,6 +25,7 @@ class RecruitmentController extends Controller
     public function store(RecruitmentRequest $request, Recruitment $recruitment)
     {
         $input = $request['recruitment'];
+        $input += ['user_id' => $request->user()->id];
         $recruitment->fill($input)->save();
         return redirect('/recruitments/');
     }
@@ -39,6 +40,7 @@ class RecruitmentController extends Controller
     public function update(RecruitmentRequest $request, Recruitment $recruitment)
     {
         $input_recruitment = $request['recruitment'];
+        $input_recruitment += ['user_id' => $request->user()->id];
         $recruitment->fill($input_recruitment)->save();
         return redirect('/recruitments/');
     }

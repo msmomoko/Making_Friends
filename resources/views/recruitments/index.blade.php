@@ -9,10 +9,12 @@
         <div class='recruitments'>
             @foreach ($recruitments as $recruitment)
                 <div class='recruitment'>
+                    <small>{{ $recruitment->user->name }}</small>
                     <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
                     <p class='category'>{{ $recruitment->category }}</p>
                     <p class='conditions'>{{ $recruitment->conditions }}</p>
                     <p class='class'>{{ $recruitment->class }}</p>
+                    <p class='location'>{{ $recruitment->location }}</p>
                 </div>
                 @if(Auth::id() == $recruitment->user_id)
                     <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
