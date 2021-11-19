@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Recruitment</title>
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
         <a href='/recruitments/create'>募集する</a>
         <div class='recruitments'>
             @foreach ($recruitments as $recruitment)
@@ -16,6 +12,7 @@
                     <p class='class'>{{ $recruitment->class }}</p>
                     <p class='location'>{{ $recruitment->location }}</p>
                 </div>
+                
                 @if(Auth::id() == $recruitment->user_id)
                     <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
                     <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="post">
@@ -24,6 +21,22 @@
                         <input type='submit' style='display:none'>
                         <button class="submit_btn" onclick="return deleteRecruitment(this);">削除</button>
                     </form>
+                @endif
+                
+                @if($recruitment->users()->where('user_id', Auth::id())->exists())
+                <div class='unfavorite'>
+                    <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="post">
+                        @csrf
+                        <input type='submit' value="いいね取り消し">
+                    </form> 
+                </div>
+                @else
+                <div class='favorite'>
+                    <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="post">
+                        @csrf
+                        <input type='submit' value="いいね" value={{$recruitment->users()->count() }}>
+                    </form> 
+                </div>
                 @endif
             @endforeach
         </div>
@@ -35,5 +48,4 @@
                 }
             }
         </script>
-    </body>
-</html>
+@endsection
