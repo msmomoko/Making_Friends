@@ -20,6 +20,7 @@ class CreateRecruitmentsTable extends Migration
             $table->text('category');
             $table->text('conditions');
             $table->text('class');
+            $table->text('location');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Recruitment</title>
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
         <form action="/recruitments/{{ $recruitment->id }}" method="POST">
             @csrf
             @method('PUT')
@@ -38,5 +34,4 @@
             </div>
             <input type="submit" value="編集する">
         </form>
-    </body>
-</html>
+@endsection

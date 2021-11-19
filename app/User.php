@@ -41,5 +41,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Recruitment');
     }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany('App\Recruitment')->withTimestamps;
+    }
 
 }
