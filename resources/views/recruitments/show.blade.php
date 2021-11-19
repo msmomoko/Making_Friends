@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-        <a href='/recruitments/create'>募集する</a>
         <div class='recruitments'>
-            @foreach ($recruitments as $recruitment)
                 <div class='recruitment'>
                     <small>{{ $recruitment->user->name }}</small>
-                    <a href="/recruitments/{{ $recruitment->id }}">
-                        <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
-                    </a>
+                    <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
                     <p class='category'>{{ $recruitment->category }}</p>
                     <p class='conditions'>{{ $recruitment->conditions }}</p>
                     <p class='class'>{{ $recruitment->class }}</p>
@@ -40,7 +36,6 @@
                     </form> 
                 </div>
                 @endif
-            @endforeach
         </div>
         <script>
             function deleteRecruitment()
