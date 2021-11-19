@@ -15,6 +15,12 @@ class RecruitmentController extends Controller
         return view('recruitments.index')->with(['recruitments' => $recruitment->getByOrder()]);
     }
     
+    //募集内容の詳細ページ
+    public function show(Recruitment $recruitment)
+    {
+        return view('recruitments.show')->with(['recruitment' => $recruitment]);
+    }
+    
     //新しい募集内容作成フォームの表示
     public function create(Recruitment $recruitment)
     {
