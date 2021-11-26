@@ -14,6 +14,7 @@ class RecruitmentRequest extends FormRequest
             'recruitment.category' => 'required',
             'recruitment.conditions' => 'required',
             'recruitment.class' => 'required',
+            'recruitment.location' => 'required',
         ];
     }
 }

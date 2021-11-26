@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recruitment;
+use Illuminate\Http\Request;
 use App\Http\Requests\RecruitmentRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,9 +11,22 @@ use Illuminate\Support\Facades\Auth;
 class RecruitmentController extends Controller
 {
     //募集内容の一覧表示
-    public function index(Recruitment $recruitment)
+    public function index(Recruitment $recruitment, Request $request)
     {
-        return view('recruitments.index')->with(['recruitments' => $recruitment->getByOrder()]);
+        $keyword = $request->input('keyword');
+        $query = Recruitment::query();
+        
+        if (!empty($keyword)){
+            $query->where('recruitment_contents', 'like', "%{$keyword}%")
+                ->orWhere('category', 'like', "%{$keyword}%")
+                ->orWhere('conditions', 'like', "%{$keyword}%")
+                ->orWhere('class', 'like', "%{$keyword}%")
+                ->orWhere('location', 'like', "%{$keyword}%");
+        }
+        
+        $recruitment = $query->with('user')->orderBy('updated_at', 'DESC')->get();
+        
+        return view('recruitments.index')->with(['recruitments' => $recruitment]);
     }
     
     //募集内容の詳細ページ
@@ -51,7 +65,7 @@ class RecruitmentController extends Controller
         return redirect('/recruitments/');
     }
     
-    //
+    //募集内容の削除
     public function delete(Recruitment $recruitment)
     {
         $recruitment->delete();
