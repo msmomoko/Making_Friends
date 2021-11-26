@@ -38,6 +38,8 @@
                 <p class="location_error" style="color:red">{{ $errors->first('recruitment.location') }}</p>
             </div>
             
+
+            
             <input type="submit" value="募集する">
         </form>
         @else
