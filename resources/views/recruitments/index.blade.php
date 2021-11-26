@@ -1,47 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-        <a href='/recruitments/create'>募集する</a>
-        <div class='recruitments'>
-            @foreach ($recruitments as $recruitment)
-                <div class='recruitment'>
-                    <small>{{ $recruitment->user->name }}</small>
-                    <a href="/recruitments/{{ $recruitment->id }}">
-                        <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
-                    </a>
-                    <p class='category'>{{ $recruitment->category }}</p>
-                    <p class='conditions'>{{ $recruitment->conditions }}</p>
-                    <p class='class'>{{ $recruitment->class }}</p>
-                    <p class='location'>{{ $recruitment->location }}</p>
-                </div>
-                
-                @if(Auth::id() == $recruitment->user_id)
-                    <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
-                    <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type='submit' style='display:none'>
-                        <button class="submit_btn" onclick="return deleteRecruitment(this);">削除</button>
-                    </form>
-                @endif
-                
-                @if($recruitment->users()->where('user_id', Auth::id())->exists())
-                <div class='unfavorite'>
-                    <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="post">
-                        @csrf
-                        <input type='submit' value="いいね取り消し">
-                    </form> 
-                </div>
-                @else
-                <div class='favorite'>
-                    <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="post">
-                        @csrf
-                        <input type='submit' value="いいね" value={{$recruitment->users()->count() }}>
-                    </form> 
-                </div>
-                @endif
-            @endforeach
-        </div>
+    <!--検索機能-->
+    <div class="search">
+        <form action="/recruitments" method="GET">
+            @csrf
+            <input type="search" id="keyword" name="keyword" value="{{ $keyword ?? '' }}"  placeholder="検索する"/>
+            <input type="submit" value="検索">
+        </form>
+    </div>
+    
+    <!--募集一覧-->
+    <a href='/recruitments/create'>募集する</a>
+    <div class='recruitments'>
+        @foreach ($recruitments as $recruitment)
+            <div class='recruitment'>
+                <small>{{ $recruitment->user->name }}</small>
+                <a href="/recruitments/{{ $recruitment->id }}">
+                    <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
+                </a>
+                <p class='category'>{{ $recruitment->category }}</p>
+                <p class='conditions'>{{ $recruitment->conditions }}</p>
+                <p class='class'>{{ $recruitment->class }}</p>
+                <p class='location'>{{ $recruitment->location }}</p>
+            </div>
+            
+            @if(Auth::id() == $recruitment->user_id)
+                <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
+                <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type='submit' style='display:none'>
+                    <button class="submit_btn" onclick="return deleteRecruitment(this);">削除</button>
+                </form>
+            @endif
+            
+            <!--いいね機能-->
+            @if($recruitment->users()->where('user_id', Auth::id())->exists())
+            <div class='unfavorite'>
+                <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="POST">
+                    @csrf
+                    <input type='submit' value="いいね取り消し">
+                </form> 
+            </div>
+            @else
+            <div class='favorite'>
+                <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="POST">
+                    @csrf
+                    <input type='submit' value="いいね" value={{$recruitment->users()->count() }}>
+                </form> 
+            </div>
+            @endif
+        @endforeach
+    </div>
         <script>
             function deleteRecruitment()
             {

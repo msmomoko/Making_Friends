@@ -21,6 +21,7 @@ class CreateRecruitmentsTable extends Migration
             $table->text('conditions');
             $table->text('class');
             $table->text('location');
+            $table->time('delete_time', 0);
             $table->timestamps();
             $table->softDeletes();
         });
