@@ -6,7 +6,7 @@
 
 Auth::routes(['verify' => true]);
 
-Route::middleware('verified')->group(function() {
+//Route::middleware('verified')->group(function() {
     Route::get('/', 'RecruitmentController@index');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/recruitments', 'RecruitmentController@index');
@@ -20,5 +20,5 @@ Route::middleware('verified')->group(function() {
     Route::post('/recruitments/{recruitment}/favorites', 'FavoriteController@store')->name('favorites');
     Route::post('/recruitments/{recruitment}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
     
-    Route::post('/recruitments/{recruitment}/comment', 'CommentController@store')->middleware('verified');
-});
+    Route::post('/recruitments/{recruitment}/comment', 'CommentController@store');
+//});

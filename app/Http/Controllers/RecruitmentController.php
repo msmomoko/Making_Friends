@@ -62,7 +62,7 @@ class RecruitmentController extends Controller
         $input_recruitment = $request['recruitment'];
         $input_recruitment += ['user_id' => $request->user()->id];
         $recruitment->fill($input_recruitment)->save();
-        return redirect('/recruitments/');
+        return redirect('/recruitments/' . $recruitment->id);
     }
     
     //募集内容の削除

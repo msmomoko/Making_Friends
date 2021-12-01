@@ -1,64 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-    <!--検索機能-->
-    <div class="search">
-        <form action="/recruitments" method="GET">
-            @csrf
-            <input type="search" id="keyword" name="keyword" value="{{ $keyword ?? '' }}"  placeholder="検索する"/>
-            <input type="submit" value="検索">
-        </form>
-    </div>
-    
-    <!--募集一覧-->
-    <a href='/recruitments/create'>募集する</a>
-    <div class='recruitments'>
+<div class="container">
+    <div class="card-deck">
         @foreach ($recruitments as $recruitment)
-            <div class='recruitment'>
-                <small>{{ $recruitment->user->name }}</small>
-                <a href="/recruitments/{{ $recruitment->id }}">
-                    <p class='recruitment_contents'>{{ $recruitment->recruitment_contents }}</p>
-                </a>
-                <p class='category'>{{ $recruitment->category }}</p>
-                <p class='conditions'>{{ $recruitment->conditions }}</p>
-                <p class='class'>{{ $recruitment->class }}</p>
-                <p class='location'>{{ $recruitment->location }}</p>
+            <div class="col-6 mb-5">
+                <div class="card">
+                    
+                    <div class="card-header">
+                        <div class="row">
+                            <p class="card-text">{{ $recruitment->user->name }}<small class="text-muted">：{{ $recruitment->updated_at }}</small></p>
+                            
+                            <!-- いいね機能 -->
+                            @if($recruitment->users()->where('user_id', Auth::id())->exists())
+                                <div class='unfavorite'>
+                                    <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="POST">
+                                        @csrf
+                                        <input class="btn btn-success" type='submit' value="いいね">
+                                    </form> 
+                                </div>
+                            @else
+                                <div class='favorite'>
+                                    <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="POST">
+                                        @csrf
+                                        <input class="btn btn-secondary" type='submit' value="いいね" value={{$recruitment->users()->count() }}>
+                                    </form> 
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- 募集一覧 -->
+                        <dl class="row">
+                            <dt class="col-sm-4 text-md-right">募集内容：</dt>
+                            <dd class="col-sm-8 card-text">
+                                <a href="/recruitments/{{ $recruitment->id }}">{{ $recruitment->recruitment_contents }}</a>
+                            </dd>
+                            
+                            <dt class="col-sm-4 text-md-right">カテゴリー：</dt>
+                            <dd class="col-sm-8 card-text">{{ $recruitment->category }}</dd>
+                            
+                            <dt class="col-sm-4 text-md-right">条件：</dt>
+                            <dd class="col-sm-8 card-text">{{ $recruitment->conditions }}</dd>
+                            
+                            <dt class="col-sm-4 text-md-right">場所：</dt>
+                            <dd class="col-sm-8 card-text">{{ $recruitment->class }}</dd>
+                            
+                            <dt class="col-sm-4 text-md-right">ロケーション：</dt>
+                            <dd class="col-sm-8 card-text">{{ $recruitment->location }}</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
-            
-            @if(Auth::id() == $recruitment->user_id)
-                <a href='/recruitments/{{ $recruitment->id }}/edit'>編集</a>
-                <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input type='submit' style='display:none'>
-                    <button class="submit_btn" onclick="return deleteRecruitment(this);">削除</button>
-                </form>
-            @endif
-            
-            <!--いいね機能-->
-            @if($recruitment->users()->where('user_id', Auth::id())->exists())
-            <div class='unfavorite'>
-                <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="POST">
-                    @csrf
-                    <input type='submit' value="いいね取り消し">
-                </form> 
-            </div>
-            @else
-            <div class='favorite'>
-                <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="POST">
-                    @csrf
-                    <input type='submit' value="いいね" value={{$recruitment->users()->count() }}>
-                </form> 
-            </div>
-            @endif
         @endforeach
     </div>
-        <script>
-            function deleteRecruitment()
-            {
-                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
-                    document.getElementById('form_delete').submit();
-                }
-            }
-        </script>
+</div>
 @endsection
