@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- mypage -->
 <div class="container">
+    <h4>自分が"いいね"した投稿</h4>
+    
     <div class="card-deck">
-        @foreach ($recruitments as $recruitment)
+        @forelse ($recruitments as $recruitment)
             <div class="col-6 mb-5">
                 <div class="card">
                     
@@ -20,9 +23,6 @@
                                         <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="POST">
                                             @csrf
                                             <input class="btn btn-success" type='submit' value="いいね">
-                                            @foreach( $recruitment->users()->get() as $user)
-                                                <p>{{ $user->name }}</p>
-                                            @endforeach
                                             <span class="badge badge-light">{{ $recruitment->users()->count() }}</span>
                                         </form>
                                     </div>
@@ -31,7 +31,6 @@
                                         <form action="/recruitments/{{ $recruitment->id }}/favorites" id="favorites" method="POST">
                                             @csrf
                                             <input class="btn btn-secondary" type='submit' value="いいね" value={{$recruitment->users()->count() }}>
-
                                             <span class="badge badge-light">{{ $recruitment->users()->count() }}</span>
                                         </form> 
                                     </div>
@@ -63,7 +62,9 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <p>"いいね"された投稿はまだありません</p>
+        @endforelse
     </div>
 </div>
 @endsection

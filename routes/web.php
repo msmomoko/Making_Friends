@@ -21,4 +21,6 @@ Auth::routes(['verify' => true]);
     Route::post('/recruitments/{recruitment}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
     
     Route::post('/recruitments/{recruitment}/comment', 'CommentController@store');
+    
+    Route::get('/users', 'RecruitmentController@user');
 //});

@@ -26,7 +26,6 @@
                                 <form action="/recruitments/{{ $recruitment->id }}" id="form_delete" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type='submit' style='display:none'>
                                     <button class="btn btn-danger" onclick="return deleteRecruitment(this);">削除</button>
                                 </form>
                             @endif

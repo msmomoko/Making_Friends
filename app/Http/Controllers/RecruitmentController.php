@@ -71,4 +71,9 @@ class RecruitmentController extends Controller
         $recruitment->delete();
         return redirect('/recruitments');
     }
+    
+    public function user()
+    {
+        return view('users.index')->with(['recruitments' => Auth::user()->favorites()->get()]);
+    }
 }

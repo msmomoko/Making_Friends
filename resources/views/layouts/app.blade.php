@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/recruitments/create">新規募集</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">マイページ</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
