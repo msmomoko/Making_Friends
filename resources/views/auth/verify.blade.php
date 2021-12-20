@@ -15,10 +15,10 @@
                     @endif
 
                     {{ __('先に進む前に、確認用のリンクをメールで確認してください。') }}
-                    {{ __('もし認証用のメールを受け取っていない場合、') }},
+                    {{ __('もし認証用のメールを受け取っていない場合、') }}
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('お問い合わせはこちらから') }}</button>.
+                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('お問い合わせはこちらから') }}</button>。
                     </form>
                 </div>
             </div>
