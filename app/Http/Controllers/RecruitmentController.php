@@ -16,6 +16,7 @@ class RecruitmentController extends Controller
         $keyword = $request->input('keyword');
         $query = Recruitment::query();
         
+        //検索
         if (!empty($keyword)){
             $query->where('recruitment_contents', 'like', "%{$keyword}%")
                 ->orWhere('category', 'like', "%{$keyword}%")

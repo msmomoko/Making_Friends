@@ -20,9 +20,11 @@
                                         <form action="/recruitments/{{ $recruitment->id }}/unfavorites" id="unfavorites" method="POST">
                                             @csrf
                                             <input class="btn btn-success" type='submit' value="いいね">
+                                            <!--
                                             @foreach( $recruitment->users()->get() as $user)
                                                 <p>{{ $user->name }}</p>
                                             @endforeach
+                                            -->
                                             <span class="badge badge-light">{{ $recruitment->users()->count() }}</span>
                                         </form>
                                     </div>
